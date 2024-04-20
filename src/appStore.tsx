@@ -70,7 +70,7 @@ const useAppStore = create<appStoreState>()(immer((set) => ({
             },
         },
         updateOperation: (operation, property, newValue) => set(appState => {
-            appState.settings.operations[operation][property] = newValue;
+            /*appState.settings.operations[operation][property] = newValue;*/
         }),
         //toggleOperation: (operation: operation) => set(appState => ())
         timeLimit: 30,
