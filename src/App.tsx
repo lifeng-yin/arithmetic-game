@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useImmer } from "use-immer";
+import { Checkbox, Button } from "@radix-ui/themes";
 import Playing from "./components/Playing";
 
 function App() {
@@ -57,6 +58,9 @@ function App() {
         <div className='p-8 shadow-lg rounded-lg flex flex-col gap-2'>
           <h2 className="text-2xl font-bold">Settings</h2>
 
+          <Button>
+            stupidity
+          </Button>
 
           {Object.entries(operationSettings).map(([operationName, operation]) => (<div>
             <input
