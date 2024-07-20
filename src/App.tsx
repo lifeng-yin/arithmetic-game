@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { useImmer } from "use-immer";
-import { Checkbox, Button } from "@radix-ui/themes";
+import { Checkbox, Button, TextField, Flex, DropdownMenu } from "@radix-ui/themes";
 import Playing from "./components/Playing";
 
 function App() {
@@ -58,61 +58,61 @@ function App() {
         <div className='p-8 shadow-lg rounded-lg flex flex-col gap-2'>
           <h2 className="text-2xl font-bold">Settings</h2>
 
-          <Button>
-            stupidity
-          </Button>
-
           {Object.entries(operationSettings).map(([operationName, operation]) => (<div>
-            <input
-              id={`${operationName}-checkbox`}
-              type="checkbox"
-              checked={operation.enabled}
-              onChange={() => setOperationSettings(s => {
-                s[operationName].enabled = !operation.enabled
-              })}
-              className='focus:ring-0 mr-2'
-            />
-            <label htmlFor={`${operationName}-checkbox`} className="capitalize">{operationName}</label>
+            <div className="flex gap-2 items-center">
+              <Checkbox 
+                id={`${operationName}-checkbox`}
+                checked={operation.enabled}
+                onCheckedChange={() => setOperationSettings(s => {
+                  s[operationName].enabled = !operation.enabled
+                })}
+              />
+              <label htmlFor={`${operationName}-checkbox`} className="capitalize">{operationName}</label>
+            </div>
 
-            <div className='pl-4'>
+            <Flex align="center">
               <span className='mr-2'>Range from {"("}</span>
-              <input
+              <TextField.Root
+                size="1" 
                 type="number"
                 value={operation.firstMin}
                 onChange={(e) => setOperationSettings(s => {
                   s[operationName].firstMin = +e.target.value
                 })}
-                className='px-2 h-8 w-[60px]'
+                className="w-[60px]"
               />
               <span className='mx-2'>to</span>
-              <input
+              <TextField.Root
+                size="1"
                 type="number"
                 value={operation.firstMax}
                 onChange={(e) => setOperationSettings(s => {
                   s[operationName].firstMax = +e.target.value
                 })}
-                className='px-2 h-8 w-[60px]'
+                className="w-[60px]"
               />
               <span className='mx-2'>{")"} {getSymbol(operationName)} {"("}</span>
-              <input
+              <TextField.Root
+                size="1"
                 type="number"
                 value={operation.secondMin}
                 onChange={(e) => setOperationSettings(s => {
                   s[operationName].secondMin = +e.target.value
                 })}
-                className='px-2 h-8 w-[60px]'
+                className="w-[60px]"
               />
               <span className='mx-2'>to</span>
-              <input
+              <TextField.Root
+                size="1"
                 type="number"
                 value={operation.secondMax}
                 onChange={(e) => setOperationSettings(s => {
                   s[operationName].secondMax = +e.target.value
                 })}
-                className='px-2 h-8 w-[60px]'
+                className='w-[60px]'
               />
               <span className='mx-2'>{")"}</span>
-            </div>
+            </Flex>
           </div>))}
 
           <div className="flex items-center gap-4 mt-4">
@@ -128,12 +128,28 @@ function App() {
               <option value="60">60 seconds</option>
               <option value="120">120 seconds</option>
             </select>
+            <DropdownMenu.Root
+              // value={time}
+              // onValueChange={(e: ) => setTime(+e)}
+            >
+              <DropdownMenu.Trigger>
+                <Button variant="soft" size="2">
+                  {time} seconds
+                  <DropdownMenu.TriggerIcon />
+                </Button>
+              </DropdownMenu.Trigger>
+              <DropdownMenu.Content size="2">
+                <DropdownMenu.Item>15 seconds</DropdownMenu.Item>
+                <DropdownMenu.Item>30 seconds</DropdownMenu.Item>
+                <DropdownMenu.Item>60 seconds</DropdownMenu.Item>
+                <DropdownMenu.Item>120 seconds</DropdownMenu.Item>
+              </DropdownMenu.Content>
+            </DropdownMenu.Root>
           </div>
 
-          <button
-            className='bg-blue-500 hover:bg-blue-600 text-white transition font-xl px-4 py-2 mt-4 rounded shadow shadow-blue-300 outline-none'
+          <Button
             onClick={handleSubmit}
-          >Start</button>
+          >Start</Button>
         </div>
       </div>
     </>
