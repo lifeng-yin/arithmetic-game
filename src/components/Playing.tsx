@@ -1,5 +1,6 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import Timer from "./Timer";
+import { TextField } from "@radix-ui/themes";
 
 function Playing({
   operationSettings,
@@ -93,14 +94,13 @@ function Playing({
         <h1 className="text-3xl">
           <span className="font-semibold">{calculationQuestion}</span> =
         </h1>
-        <input
+        <TextField.Root
+          size="3"
+          variant="soft"
           type="number"
           step={1}
+          className="text-3xl font-semibold"
           autoFocus
-          className={
-            "[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none " +
-            "rounded-lg text-2xl"
-          }
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             if (+e.target.value === calculationAnswer) {
               setScore((s) => s + 1);
@@ -108,7 +108,7 @@ function Playing({
               e.target.value = "";
             }
           }}
-        ></input>
+        ></TextField.Root>
       </div>
     </div>
   );
