@@ -8,7 +8,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
   <Theme
     accentColor="blue"
     grayColor="sand"
-    radius="none"
+    radius="medium"
   >
     <React.StrictMode>
       <App />

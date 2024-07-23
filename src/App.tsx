@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useImmer } from "use-immer";
-import { Checkbox, Button, TextField, Flex, Select } from "@radix-ui/themes";
+import { Checkbox, Button, TextField, Flex, Select, Card, Heading } from "@radix-ui/themes";
 import Playing from "./components/Playing";
+import Results from "./components/Results";
 
 function App() {
   const [appState, setAppState] = useState<"settings" | "playing" | "results">(
@@ -59,14 +60,14 @@ function App() {
   if (appState === "settings")
     return (
       <>
-        <div className="flex justify-center items-center w-full h-screen">
-          <div className="p-8 shadow-lg rounded-lg flex flex-col gap-2">
-            <h2 className="text-2xl font-bold">Settings</h2>
+        <Flex className="w-full h-screen" align="center" justify="center">
+          <Card size="4" variant="classic">
+            <Heading as="h2">Settings</Heading>
 
             {Object.entries(operationSettings).map(
               ([operationName, operation]) => (
-                <div>
-                  <div className="flex gap-2 items-center">
+                <div className="mt-2">
+                  <Flex gap="2" align="center">
                     <Checkbox
                       id={`${operationName}-checkbox`}
                       checked={operation.enabled}
@@ -82,13 +83,14 @@ function App() {
                     >
                       {operationName}
                     </label>
-                  </div>
+                  </Flex>
 
                   <Flex align="center">
                     <span className="mr-2">Range from {"("}</span>
                     <TextField.Root
                       size="1"
                       type="number"
+                      radius="none"
                       value={operation.firstMin}
                       onChange={(e) =>
                         setOperationSettings((s) => {
@@ -101,6 +103,7 @@ function App() {
                     <TextField.Root
                       size="1"
                       type="number"
+                      radius="none"
                       value={operation.firstMax}
                       onChange={(e) =>
                         setOperationSettings((s) => {
@@ -115,6 +118,7 @@ function App() {
                     <TextField.Root
                       size="1"
                       type="number"
+                      radius="none"
                       value={operation.secondMin}
                       onChange={(e) =>
                         setOperationSettings((s) => {
@@ -127,6 +131,7 @@ function App() {
                     <TextField.Root
                       size="1"
                       type="number"
+                      radius="none"
                       value={operation.secondMax}
                       onChange={(e) =>
                         setOperationSettings((s) => {
@@ -160,9 +165,9 @@ function App() {
               </Select.Root>
             </Flex>
 
-            <Button onClick={handleSubmit}>Start</Button>
-          </div>
-        </div>
+            <Button onClick={handleSubmit} className="mt-3">Start</Button>
+          </Card>
+        </Flex>
       </>
     );
   else if (appState === "playing")
@@ -173,7 +178,7 @@ function App() {
         switchToResults={switchToResults}
       />
     );
-  else if (appState === "results") return <>Results</>;
+  else if (appState === "results") return <Results />;
 }
 
 export default App;

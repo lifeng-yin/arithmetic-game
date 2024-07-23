@@ -1,6 +1,6 @@
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import Timer from "./Timer";
-import { TextField } from "@radix-ui/themes";
+import { TextField, Flex, Heading, Strong } from "@radix-ui/themes";
 
 function Playing({
   operationSettings,
@@ -79,27 +79,28 @@ function Playing({
   }, []);
 
   return (
-    <div className="flex items-center justify-center w-full h-screen">
+    <Flex align="center" justify="center" className="w-full h-screen">
       <span className="absolute top-2 left-2">
         Time Left:&nbsp;
-        <strong className="font-medium">
+        <Strong>
           <Timer time={time} onEnd={() => switchToResults()} />
-        </strong>
+        </Strong>
       </span>
       <span className="absolute top-2 right-2">
-        Score: <strong className="font-medium">{score}</strong>
+        Score: <Strong>{score}</Strong>
       </span>
 
-      <div className="p-8 flex w-full items-center justify-center bg-gray-200 gap-4">
-        <h1 className="text-3xl">
-          <span className="font-semibold">{calculationQuestion}</span> =
-        </h1>
+      <Flex align="center" justify="center" className="p-8 w-full bg-gray-200 gap-4">
+        <Heading as="h1" size="7">
+          <Strong>{calculationQuestion}</Strong> =
+        </Heading>
         <TextField.Root
           size="3"
           variant="soft"
           type="number"
           step={1}
           className="text-3xl font-semibold"
+          radius="none"
           autoFocus
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             if (+e.target.value === calculationAnswer) {
@@ -109,8 +110,8 @@ function Playing({
             }
           }}
         ></TextField.Root>
-      </div>
-    </div>
+      </Flex>
+    </Flex>
   );
 }
 
