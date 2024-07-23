@@ -9,7 +9,6 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
     accentColor="blue"
     grayColor="sand"
     radius="medium"
-      
   >
     <React.StrictMode>
       <App />
