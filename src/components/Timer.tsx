@@ -1,21 +1,22 @@
 import { useEffect, useState } from "react";
+import { Strong } from "@radix-ui/themes";
 
-function Timer({ time, onEnd }: { time: number; onEnd: Function }) {
-  const [timeLeft, setTimeLeft] = useState(time);
+function Timer({ roundTime, onEnd }: { roundTime: number; onEnd: () => void }) {
+  const [timeLeft, setTimeLeft] = useState(roundTime);
   useEffect(() => {
+    if (timeLeft === 0) {
+      onEnd()
+    }
     const interval = setInterval(() => {
-      if (timeLeft <= 0) {
-        return;
-      }
       setTimeLeft((prevTime) => prevTime - 1);
     }, 1000);
 
     return () => {
       clearTimeout(interval);
     };
-  }, [timeLeft, onEnd]);
+  }, [timeLeft]);
 
-  return <>{timeLeft}</>;
+  return <Strong>{timeLeft}</Strong>;
 }
 
 export default Timer;
