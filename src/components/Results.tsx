@@ -1,5 +1,5 @@
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
-import { useAppStore } from '../lib/store';
+import { useAppStore } from '../lib/store/appStore';
 
 const Results = () => {
   const { lastRound } = useAppStore();

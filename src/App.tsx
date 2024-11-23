@@ -1,7 +1,7 @@
 import Playing from "./components/Playing";
 import Results from "./components/Results";
 import Config from "./components/Config";
-import { useAppStore } from "./lib/store";
+import { useAppStore } from "./lib/store/appStore";
 
 function App() {
 

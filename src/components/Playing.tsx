@@ -1,7 +1,8 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { TextField, Flex, Heading, Strong } from "@radix-ui/themes";
-import { useAppStore, useConfigStore } from "../lib/store";
-import { generateQuestion, getRandomOperation } from "../lib/calculations";
+import { useAppStore } from "../lib/store/appStore";
+import { useConfigStore } from "../lib/store/configStore";
+import { generateQuestion, getRandomOperation } from "../lib/utils/calculations";
 
 function Playing() {
   const operations = useConfigStore((state) => state.operations);

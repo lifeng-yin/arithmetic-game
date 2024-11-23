@@ -1,6 +1,6 @@
 import { Checkbox, Flex, Card, Heading, Select, TextField, Button } from "@radix-ui/themes";
-import { useAppStore } from "../lib/store";
-import { useConfigStore } from "../lib/store";
+import { useAppStore } from "../lib/store/appStore";
+import { useConfigStore } from "../lib/store/configStore";
 
 const Settings = () => {
   const { setPage } = useAppStore()

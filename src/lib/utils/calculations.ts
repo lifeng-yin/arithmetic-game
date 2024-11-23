@@ -1,4 +1,4 @@
-import { operation, operations } from "./store";
+import { operation, operations } from "../store/configStore";
 
 export const getRandomOperation = (operations: operations) => {
     const enabledOperations = Object.values(operations).filter((operation) => operation.enabled);
