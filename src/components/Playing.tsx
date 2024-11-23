@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Timer from "./Timer";
 import { TextField, Flex, Heading, Strong } from "@radix-ui/themes";
-import { useAppStore, useConfigStore, operations } from "../lib/store";
+import { useAppStore, useConfigStore } from "../lib/store";
 import { generateQuestion, getRandomOperation } from "../lib/calculations";
 
 function Playing() {

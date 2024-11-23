@@ -14,7 +14,7 @@ function Timer({ roundTime, onEnd }: { roundTime: number; onEnd: () => void }) {
     return () => {
       clearTimeout(interval);
     };
-  }, [timeLeft]);
+  }, [timeLeft, onEnd]);
 
   return <Strong>{timeLeft}</Strong>;
 }
