@@ -19,7 +19,7 @@ export const generateQuestion = (operation: operation): [string, number] => {
       const factor = getRandomNumber(firstMin, firstMax);
       do {
         answer = getRandomNumber(secondMin, secondMax);
-      } while (answer === 0);
+      } while (factor === 0);
       question = `${factor * answer} ÷ ${factor}`
     }
   

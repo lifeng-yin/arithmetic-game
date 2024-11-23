@@ -1,21 +1,30 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import Timer from "./Timer";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { TextField, Flex, Heading, Strong } from "@radix-ui/themes";
 import { useAppStore, useConfigStore } from "../lib/store";
 import { generateQuestion, getRandomOperation } from "../lib/calculations";
 
 function Playing() {
+  const operations = useConfigStore((state) => state.operations);
+  const roundTime = useConfigStore((state) => state.roundTime);
+  const { setPage, setLastRound } = useAppStore()
+
+  const [timeLeft, setTimeLeft] = useState(roundTime);
   const [score, setScore] = useState(0);
   const [calculationQuestion, setCalculationQuestion] = useState<string>();
   const [calculationAnswer, setCalculationAnswer] = useState<number>();
 
-  const operations = useConfigStore((state) => state.operations);
-  const roundTime = useConfigStore((state) => state.roundTime);
-  const { setPage } = useAppStore()
+
+  type dataPoint = {
+    time: number;
+    pps: number;
+  }
+
+  const dataPoints = useRef<dataPoint[]>([])
 
   const onTypeAnswer = (e: ChangeEvent<HTMLInputElement>) => {
     if (+e.target.value === calculationAnswer) {
-      setScore((s) => s + 1);
+
+      setScore(score + 1);
       e.target.value = "";
       const [question, answer] = generateQuestion(getRandomOperation(operations))
       setCalculationQuestion(question);
@@ -29,14 +38,34 @@ function Playing() {
     setCalculationAnswer(answer)
   }, [operations]);
 
+  useEffect(() => {
+    if (timeLeft === 0) {
+      setPage("results")
+      setLastRound({
+        score,
+        data: dataPoints.current
+      })
+    }
+    const interval = setInterval(() => {
+      setTimeLeft((prevTime) => prevTime - 1);
+
+      dataPoints.current.push({
+        time: roundTime - timeLeft + 1,
+        pps: (score) / (roundTime - timeLeft + 1)
+      })
+
+    }, 1000);
+
+    return () => {
+      clearTimeout(interval);
+    };
+  }, [timeLeft, setPage, setLastRound, score, roundTime]);
+
+
   return (
     <Flex align="center" justify="center" className="w-full h-screen">
       <span className="absolute top-2 left-2">
-        Time Left:&nbsp;
-        <Timer 
-          roundTime={roundTime}
-          onEnd={() => { setPage("results") }}
-        />
+        Time Left:&nbsp; <strong>{timeLeft}</strong>
       </span>
       <span className="absolute top-2 right-2">
         Score: <Strong>{score}</Strong>
